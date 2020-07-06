@@ -4,16 +4,16 @@ This service displays an up-to-date list of top assets and their current prices 
 
 ## Data Sources
 
-Cryptocompare API - to get the current ranking information for the top 100 assets.
-Coinmarketcap API - to get the current USD prices
+- Cryptocompare API - to get the current ranking information for the top 100 assets.
+- Coinmarketcap API - to get the current USD prices
 
 ## Architecture
 
 3 separate services (service oriented architecture):
 
-Pricing Service - keeps the up-to-date pricing information
-Ranking Service - keeps the up-to-date ranking information
-HTTP-API Service - exposes a HTTP endpoint that returns the up-to-date list of up to 100 top coins prices.
+- Pricing Service - keeps the up-to-date pricing information
+- Ranking Service - keeps the up-to-date ranking information
+- HTTP-API Service - exposes a HTTP endpoint that returns the up-to-date list of up to 100 top coins prices.
 
 ### Patterns
 
