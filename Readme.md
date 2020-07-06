@@ -40,3 +40,7 @@ Run `docker-compose up --build`
 `curl http://localhost:8080?limit=100`
 
 Note: The ranking data source has a max limit of 100 items. Therefore, this is the maximum amount to get from the ranking.
+
+## Unit Testing
+
+Not implemented yet.
