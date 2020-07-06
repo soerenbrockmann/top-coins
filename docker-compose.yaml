@@ -1,0 +1,52 @@
+version: '3'
+services:
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: rabbitmq
+    hostname: 'rabbitmq'
+    volumes:
+      - ./rabbitmq/data/:/var/lib/rabbitmq/
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+      - RABBITMQ_NODENAME=rabbitnode@localhost
+      - RABBITMQ_USER=rabbit
+      - RABBITMQ_PASSWORD=rabbit
+    ports:
+      - 5672:5672
+      - 15672:15672
+  http-api-service:
+    depends_on:
+      - rabbitmq
+    restart: on-failure
+    build:
+      dockerfile: Dockerfile
+      context: ./http-api-service
+    volumes:
+      - .:/http-api-service
+      - go-modules:/go/pkg/mod
+    ports:
+      - '8080:8081'
+  pricing-service:
+    depends_on:
+      - rabbitmq
+      - http-api-service
+    restart: on-failure
+    build:
+      dockerfile: Dockerfile
+      context: ./pricing-service
+    volumes:
+      - .:/pricing-service
+      - go-modules:/go/pkg/mod
+  ranking-service:
+    depends_on:
+      - rabbitmq
+    restart: on-failure
+    build:
+      dockerfile: Dockerfile
+      context: ./ranking-service
+    volumes:
+      - .:/ranking-service
+      - go-modules:/go/pkg/mod
+volumes:
+  go-modules:
